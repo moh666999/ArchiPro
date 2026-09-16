@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArchiPro - Edit File</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #f5f5f5;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #222;
+        }
+
+        .window {
+            width: 900px;
+            min-height: 650px;
+            margin: 20px auto;
+            background: #ffffff;
+            position: relative;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            position: absolute;
+            left: 20px;
+            top: 10px;
+            width: 220px;
+            height: 80px;
+            object-fit: contain;
+            object-position: left center;
+        }
+
+        .title {
+            position: absolute;
+            left: 20px;
+            top: 95px;
+            width: 350px;
+            height: 30px;
+            color: #C59B35;
+            font-size: 14pt;
+            font-weight: bold;
+            line-height: 30px;
+        }
+
+        .developer {
+            position: absolute;
+            left: 20px;
+            top: 125px;
+            width: 260px;
+            height: 40px;
+            color: #666666;
+            font-size: 9pt;
+            font-style: italic;
+            line-height: 18px;
+        }
+
+        .form-box {
+            position: absolute;
+            left: 20px;
+            top: 170px;
+            width: 860px;
+        }
+
+        .row {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .row label {
+            width: 150px;
+            padding-top: 9px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select,
+        textarea,
+        input[type="file"] {
+            width: 610px;
+            border: 1px solid #bdbdbd;
+            border-radius: 4px;
+            padding: 8px 10px;
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #ffffff;
+            outline: none;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select {
+            height: 38px;
+        }
+
+        textarea {
+            height: 125px;
+            resize: vertical;
+        }
+
+        .number-box {
+            width: 120px !important;
+            background: #eeeeee !important;
+            color: #555555;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .file-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 610px;
+        }
+
+        .file-row input[type="file"] {
+            width: 610px;
+            height: 38px;
+            padding: 7px 10px;
+            cursor: pointer;
+        }
+
+        .current-file {
+            margin-left: 150px;
+            margin-top: -8px;
+            margin-bottom: 14px;
+            color: #777777;
+            font-size: 12px;
+        }
+
+        .path-row {
+            display: flex;
+            gap: 10px;
+            width: 610px;
+        }
+
+        .path-row input {
+            flex: 1;
+            width: auto;
+        }
+
+        .buttons {
+            margin-left: 150px;
+            display: flex;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        button,
+        .back-button {
+            height: 38px;
+            padding: 0 22px;
+            border: 1px solid #bdbdbd;
+            border-radius: 4px;
+            background: #eeeeee;
+            color: #222222;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button:hover,
+        .back-button:hover {
+            background: #e2e2e2;
+        }
+
+        .save-button {
+            background: #C59B35;
+            border-color: #C59B35;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .save-button:hover {
+            background: #b38b2f;
+        }
+
+        .flash {
+            position: absolute;
+            left: 20px;
+            top: 620px;
+            color: #b00020;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="window">
+
+    <img
+        class="logo"
+        src="{{ url_for('static', filename='logo.png.jpeg') }}"
+        alt="ArchiPro Logo"
+    >
+
+    <div class="title">Archive Management System</div>
+
+    <div class="developer">
+        Developed by:<br>
+        Eng. Perry Emad
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" action="{{ url_for('edit_file', file_id=file['id']) }}">
+
+        <div class="form-box">
+
+            <div class="row">
+                <label for="file_number">رقم الملف</label>
+                <input
+                    id="file_number"
+                    class="number-box"
+                    type="text"
+                    value="{{ file['file_number'] }}"
+                    readonly
+                >
+            </div>
+
+            <div class="row">
+                <label for="file_name">اسم الملف</label>
+                <input
+                    id="file_name"
+                    name="file_name"
+                    type="text"
+                    value="{{ file['file_name'] or '' }}"
+                    required
+                    autofocus
+                >
+            </div>
+
+            <div class="row">
+                <label for="subject">الموضوع</label>
+                <textarea
+                    id="subject"
+                    name="subject"
+                    required
+                >{{ file['subject'] or '' }}</textarea>
+            </div>
+
+            <div class="row">
+                <label for="archive_type">نوع الأرشيف</label>
+                <select
+                    id="archive_type"
+                    name="archive_type"
+                    required
+                >
+                    <option value="ورقي" {% if file['archive_type'] == 'ورقي' %}selected{% endif %}>ورقي</option>
+                    <option value="الكتروني" {% if file['archive_type'] == 'الكتروني' %}selected{% endif %}>الكتروني</option>
+                </select>
+            </div>
+
+            <div class="row">
+                <label for="document_date">تاريخ المستند</label>
+                <input
+                    id="document_date"
+                    name="document_date"
+                    type="date"
+                    value="{{ file['document_date'] or '' }}"
+                >
+            </div>
+
+            <div class="row">
+                <label for="document_file">الملف الإلكتروني</label>
+                <div class="file-row">
+                    <input
+                        id="document_file"
+                        name="document_file"
+                        type="file"
+                    >
+                </div>
+            </div>
+
+            {% if file['document_file_path'] %}
+                <div class="current-file">
+                    الملف الحالي: {{ file['document_file_path'].split('\\')[-1].split('/')[-1] }} — اترك الاختيار فارغًا للاحتفاظ به
+                </div>
+            {% endif %}
+
+            <div class="row">
+                <label for="file_path">مكان حفظ المستند</label>
+                <div class="path-row">
+                    <input
+                        id="file_path"
+                        name="file_path"
+                        type="text"
+                        value="{{ file['file_path'] or '' }}"
+                        placeholder="أدخل مكان حفظ المستند"
+                    >
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button type="submit" class="save-button">حفظ التعديل</button>
+                <a href="{{ url_for('dashboard') }}" class="back-button">إلغاء</a>
+            </div>
+
+        </div>
+
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash">
+                {% for message in messages %}
+                    {{ message }}{% if not loop.last %}<br>{% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>استعادة النسخة الاحتياطية - ArchiPro</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            background: #eeeeee;
+            font-family: Arial, Tahoma, sans-serif;
+        }
+
+        .window {
+            width: 600px;
+            margin: 70px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .warning {
+            background: #fff5e5;
+            border: 1px solid #e5c48c;
+            padding: 12px;
+            border-radius: 5px;
+            margin: 20px 0;
+            line-height: 1.7;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        button,
+        a {
+            padding: 10px 22px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        button {
+            background: #c53b3b;
+            color: white;
+        }
+
+        a {
+            background: #666;
+            color: white;
+        }
+
+        .flash {
+            background: #f3eeee;
+            border: 1px solid #ddd;
+            padding: 8px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="window">
+
+    <h1>
+        استعادة النسخة الاحتياطية
+    </h1>
+
+    {% with messages = get_flashed_messages() %}
+
+        {% for message in messages %}
+
+            <div class="flash">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    {% endwith %}
+
+
+    <div class="warning">
+
+        ⚠️ تنبيه:
+
+        <br>
+
+        عملية الاستعادة ستستبدل قاعدة البيانات الحالية
+        بالنسخة المختارة.
+
+        <br>
+
+        يفضل التأكد من اختيار النسخة الصحيحة قبل المتابعة.
+
+    </div>
+
+
+    <form
+        method="POST"
+        enctype="multipart/form-data"
+        onsubmit="return confirm('هل أنت متأكد من استعادة هذه النسخة؟');"
+    >
+
+        <input
+            type="file"
+            name="backup_file"
+            accept=".zip,.db"
+            required
+        >
+
+        <br>
+
+        <button type="submit">
+            استعادة النسخة
+        </button>
+
+        <a
+            href="{{ url_for('dashboard') }}"
+        >
+            إلغاء
+        </a>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>

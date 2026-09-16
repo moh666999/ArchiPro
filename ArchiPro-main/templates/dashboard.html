@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ArchiPro - Archive Management System</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f5f7;
+    color: #222222;
+}
+
+
+/* =====================================================
+   MAIN WEB APP
+===================================================== */
+
+.app {
+    width: 96%;
+    max-width: 1400px;
+    min-height: 94vh;
+    margin: 25px auto;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 3px 18px rgba(0,0,0,0.10);
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header {
+    min-height: 125px;
+    padding: 18px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e5e5e5;
+    background: #ffffff;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.dashboard-logo {
+    width: 175px;
+    height: 78px;
+    object-fit: contain;
+    object-position: left center;
+}
+
+.brand-info {
+    border-left: 1px solid #dddddd;
+    padding-left: 18px;
+}
+
+.system-title {
+    color: #C59B35;
+    font-size: 19px;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.developer {
+    color: #777777;
+    font-size: 12px;
+    font-style: italic;
+    line-height: 18px;
+}
+
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-card {
+    background: #f8f8f8;
+    border: 1px solid #e4e4e4;
+    border-radius: 7px;
+    padding: 9px 14px;
+    min-width: 150px;
+    text-align: center;
+}
+
+.user-label {
+    display: block;
+    color: #888888;
+    font-size: 11px;
+    margin-bottom: 4px;
+}
+
+.username {
+    font-weight: bold;
+    font-size: 13px;
+    color: #333333;
+}
+
+.logout-button {
+    height: 38px;
+    padding: 0 18px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    background: #ffffff;
+    color: #555555;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+}
+
+.logout-button:hover {
+    background: #f4f4f4;
+    border-color: #C59B35;
+    color: #C59B35;
+}
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.content {
+    padding: 25px;
+}
+
+.page-heading {
+    margin-bottom: 18px;
+}
+
+.page-heading h1 {
+    margin: 0;
+    font-size: 22px;
+    color: #333333;
+}
+
+.page-heading p {
+    margin: 6px 0 0;
+    color: #888888;
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-section {
+    width: 100%;
+    background: #fafafa;
+    border: 1px solid #e3e3e3;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.search-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: #555555;
+    margin-bottom: 9px;
+}
+
+.search-form {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+.search-box {
+    flex: 1;
+    height: 46px;
+    padding: 0 15px;
+    border: 1px solid #cfcfcf;
+    border-radius: 6px;
+    background: #ffffff;
+    font-size: 14px;
+    color: #222222;
+    outline: none;
+}
+
+.search-box:focus {
+    border-color: #C59B35;
+    box-shadow: 0 0 0 2px rgba(197,155,53,0.10);
+}
+
+.search-box::placeholder {
+    color: #999999;
+}
+
+.search-button {
+    height: 46px;
+    min-width: 115px;
+    padding: 0 20px;
+    border: 1px solid #C59B35;
+    border-radius: 6px;
+    background: #C59B35;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background: #b38b2f;
+}
+
+.clear-search {
+    height: 46px;
+    padding: 0 18px;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #555555;
+    font-size: 13px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clear-search:hover {
+    background: #f1f1f1;
+}
+
+.search-hint {
+    margin-top: 8px;
+    color: #999999;
+    font-size: 11px;
+}
+
+
+/* =====================================================
+   FLASH MESSAGES
+===================================================== */
+
+.messages {
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+.message {
+    background: #fff8df;
+    border: 1px solid #e5c866;
+    padding: 10px 13px;
+    margin-bottom: 7px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.section-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555555;
+    margin-bottom: 10px;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-bottom: 22px;
+}
+
+.main-button,
+.second-button {
+    min-width: 105px;
+    height: 38px;
+    padding: 0 17px;
+    border: 1px solid #d0d0d0;
+    border-radius: 5px;
+    background: #ffffff;
+    color: #333333;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.15s;
+}
+
+.main-button:hover,
+.second-button:hover {
+    border-color: #C59B35;
+    color: #C59B35;
+    background: #fffdf7;
+}
+
+.main-button:disabled,
+.second-button:disabled {
+    opacity: 0.45;
+    cursor: default;
+}
+
+.btn-add {
+    background: #C59B35;
+    border-color: #C59B35;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.btn-add:hover {
+    background: #b38b2f;
+    color: #ffffff;
+}
+
+.btn-delete:hover {
+    border-color: #b00020;
+    color: #b00020;
+}
+
+
+/* =====================================================
+   ARCHIVE AREA
+===================================================== */
+
+.archive-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.archive-count {
+    color: #888888;
+    font-size: 12px;
+}
+
+.table-container {
+    width: 100%;
+    max-height: 500px;
+    overflow: auto;
+    border: 1px solid #dddddd;
+    border-radius: 7px;
+    background: #ffffff;
+}
+
+
+/* =====================================================
+   TABLE
+   IMPORTANT:
+   LONG TEXT IS NOW FULLY VISIBLE
+===================================================== */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 13px;
+    min-width: 1050px;
+}
+
+th,
+td {
+    border-bottom: 1px solid #eeeeee;
+
+    /*
+       Increased padding so rows look cleaner
+    */
+    padding: 12px 10px;
+
+    /*
+       IMPORTANT:
+       No fixed height.
+       The row grows automatically with long text.
+    */
+    min-height: 45px;
+    height: auto;
+
+    text-align: left;
+
+    /*
+       LONG TEXT WILL WRAP
+    */
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+
+    /*
+       Break very long file names / paths safely
+    */
+    overflow-wrap: anywhere;
+    word-break: break-word;
+
+    vertical-align: top;
+    line-height: 20px;
+}
+
+th {
+    background: #f7f7f7;
+    color: #444444;
+    font-weight: bold;
+
+    position: sticky;
+    top: 0;
+    z-index: 2;
+
+    /*
+       Header stays on one line
+    */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    vertical-align: middle;
+}
+
+
+/* =====================================================
+   ROWS
+===================================================== */
+
+tbody tr {
+    cursor: pointer;
+    transition: background 0.12s;
+}
+
+tbody tr:hover td {
+    background: #fffdf6;
+}
+
+tbody tr.selected td {
+    background: #fff8df;
+}
+
+
+/* =====================================================
+   FILE NUMBER
+===================================================== */
+
+th:nth-child(1),
+td:nth-child(1) {
+    width: 100px;
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   FILE NAME
+===================================================== */
+
+th:nth-child(2),
+td:nth-child(2) {
+    width: 220px;
+
+    /*
+       File name can use multiple lines
+    */
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+
+/* =====================================================
+   SUBJECT
+===================================================== */
+
+th:nth-child(3),
+td:nth-child(3) {
+    width: 300px;
+
+    /*
+       Subject / description gets the biggest space
+    */
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+
+/* =====================================================
+   ARCHIVE TYPE
+===================================================== */
+
+th:nth-child(4),
+td:nth-child(4) {
+    width: 155px;
+    white-space: normal;
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+th:nth-child(5),
+td:nth-child(5) {
+    width: 120px;
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   STORAGE LOCATION
+===================================================== */
+
+th:nth-child(6),
+td:nth-child(6) {
+    width: 220px;
+
+    /*
+       Long paths / file names wrap instead of disappearing
+    */
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+th:nth-child(7),
+td:nth-child(7) {
+    width: 120px;
+    white-space: normal;
+}
+
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.empty {
+    text-align: center;
+    padding: 55px 20px;
+    color: #888888;
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer {
+    padding: 15px 25px;
+    border-top: 1px solid #eeeeee;
+    color: #999999;
+    font-size: 11px;
+    text-align: right;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .app {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .user-area {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .search-form {
+        flex-direction: column;
+    }
+
+    .search-button,
+    .clear-search {
+        width: 100%;
+    }
+
+    .content {
+        padding: 15px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- =====================================================
+     HEADER
+====================================================== -->
+
+<header class="header">
+
+```
+<div class="brand">
+
+    <img
+        src="{{ url_for('static', filename='logo.jpg') }}"
+        alt="ArchiPro Logo"
+        class="dashboard-logo"
+    >
+
+    <div class="brand-info">
+
+        <div class="system-title">
+            Archive Management System
+        </div>
+
+        <div class="developer">
+            Developed by:<br>
+            Eng. Perry Emad
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="user-area">
+
+    <div class="user-card">
+
+        <span class="user-label">
+            Logged in as
+        </span>
+
+        <span class="username">
+            {{ username }}
+        </span>
+
+    </div>
+
+
+    <a
+        href="/logout"
+        class="logout-button"
+    >
+        Logout
+    </a>
+
+</div>
+```
+
+</header>
+
+<!-- =====================================================
+     CONTENT
+====================================================== -->
+
+<main class="content">
+
+```
+<div class="page-heading">
+
+    <h1>
+        Archive Dashboard
+    </h1>
+
+    <p>
+        Manage, search and access your archive files.
+    </p>
+
+</div>
+
+
+<!-- =================================================
+     SEARCH
+================================================== -->
+
+<section class="search-section">
+
+    <div class="search-title">
+        Search Archive
+    </div>
+
+
+    <form
+        method="GET"
+        action="/search"
+        class="search-form"
+    >
+
+        <input
+            type="text"
+            name="q"
+            class="search-box"
+            value="{{ search_text|default('') }}"
+            placeholder="Search by file number, file name, subject, document type, archive type, date, storage location..."
+            autocomplete="off"
+        >
+
+
+        <button
+            type="submit"
+            class="search-button"
+        >
+            🔍 Search
+        </button>
+
+
+        {% if search_text|default('') %}
+
+            <a
+                href="/dashboard"
+                class="clear-search"
+            >
+                Clear
+            </a>
+
+        {% endif %}
+
+    </form>
+
+
+    <div class="search-hint">
+        You can search using any information saved in the archive record.
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     FLASH MESSAGES
+================================================== -->
+
+{% with messages = get_flashed_messages() %}
+
+    {% if messages %}
+
+        <div class="messages">
+
+            {% for message in messages %}
+
+                <div class="message">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+{% endwith %}
+
+
+<!-- =================================================
+     ACTIONS
+================================================== -->
+
+<div class="section-title">
+    Archive Actions
+</div>
+
+
+<div class="actions">
+
+
+    <!-- ADD -->
+
+    {% if user["can_add"] or user["role"] == "main_user" %}
+
+        <a
+            href="/add-file"
+            class="main-button btn-add"
+        >
+            + Add File
+        </a>
+
+    {% else %}
+
+        <span class="main-button btn-add">
+            + Add File
+        </span>
+
+    {% endif %}
+
+
+    <!-- EDIT -->
+
+    {% if user["can_edit"] or user["role"] == "main_user" %}
+
+        <a
+            href="#"
+            class="main-button btn-edit"
+            onclick="return selectFileForEdit();"
+        >
+            Edit
+        </a>
+
+    {% else %}
+
+        <span class="main-button btn-edit">
+            Edit
+        </span>
+
+    {% endif %}
+
+
+    <!-- DELETE -->
+
+    {% if user["can_delete"] or user["role"] == "main_user" %}
+
+        <span
+            class="main-button btn-delete"
+            onclick="return deleteSelectedFile();"
+        >
+            Delete
+        </span>
+
+    {% else %}
+
+        <span class="main-button btn-delete">
+            Delete
+        </span>
+
+    {% endif %}
+
+
+    <!-- OPEN -->
+
+    {% if user["can_view"] or user["role"] == "main_user" %}
+
+        <span
+            class="main-button btn-open"
+            onclick="return openSelectedFile();"
+        >
+            Open
+        </span>
+
+    {% else %}
+
+        <span class="main-button btn-open">
+            Open
+        </span>
+
+    {% endif %}
+
+
+    <!-- USERS -->
+
+    {% if user["role"] == "main_user" %}
+
+        <a
+            href="/users"
+            class="main-button btn-users"
+        >
+            Users
+        </a>
+
+    {% else %}
+
+        <span class="main-button btn-users">
+            Users
+        </span>
+
+    {% endif %}
+
+
+    <!-- EXPORT -->
+
+    {% if user["role"] == "main_user" %}
+
+        <a
+            href="/export-excel"
+            class="main-button btn-export"
+        >
+            Export
+        </a>
+
+    {% else %}
+
+        <span class="main-button btn-export">
+            Export
+        </span>
+
+    {% endif %}
+
+
+    <!-- IMPORT -->
+
+    {% if user["role"] == "main_user" %}
+
+        <form
+            id="importExcelForm"
+            action="/import-excel"
+            method="POST"
+            enctype="multipart/form-data"
+            style="margin:0;"
+        >
+
+            <input
+                type="file"
+                id="excelFileInput"
+                name="excel_file"
+                accept=".xlsx"
+                style="display:none;"
+                onchange="document.getElementById('importExcelForm').submit();"
+            >
+
+            <a
+                href="#"
+                class="main-button btn-import"
+                onclick="document.getElementById('excelFileInput').click(); return false;"
+            >
+                Import
+            </a>
+
+        </form>
+
+    {% else %}
+
+        <span class="main-button btn-import">
+            Import
+        </span>
+
+    {% endif %}
+
+
+    <!-- HISTORY -->
+
+    {% if user["role"] == "main_user" %}
+
+        <a
+            href="/history"
+            class="main-button btn-history"
+        >
+            History
+        </a>
+
+    {% else %}
+
+        <span class="main-button btn-history">
+            History
+        </span>
+
+    {% endif %}
+
+
+    <!-- DOWNLOAD -->
+
+    {% if user["can_download"] or user["role"] == "main_user" %}
+
+        <span
+            class="second-button btn-download"
+            onclick="return downloadSelectedFile();"
+        >
+            Download
+        </span>
+
+    {% else %}
+
+        <span class="second-button btn-download">
+            Download
+        </span>
+
+    {% endif %}
+
+
+    <!-- BACKUP -->
+
+    {% if user["role"] == "main_user" %}
+
+        <a
+            href="/backup"
+            class="second-button btn-backup"
+        >
+            Backup
+        </a>
+
+    {% else %}
+
+        <span class="second-button btn-backup">
+            Backup
+        </span>
+
+    {% endif %}
+
+
+    <!-- RESTORE -->
+
+    {% if user["role"] == "main_user" %}
+
+        <a
+            href="/restore"
+            class="second-button btn-restore"
+        >
+            Restore
+        </a>
+
+    {% else %}
+
+        <span class="second-button btn-restore">
+            Restore
+        </span>
+
+    {% endif %}
+
+
+</div>
+
+
+<!-- =================================================
+     ARCHIVE TABLE HEADER
+================================================== -->
+
+<div class="archive-header">
+
+    <div class="section-title">
+        Archive Files
+    </div>
+
+    <div class="archive-count">
+
+        {% if files %}
+
+            {{ files|length }} file(s)
+
+        {% else %}
+
+            0 files
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<!-- =================================================
+     ARCHIVE TABLE
+================================================== -->
+
+<div class="table-container">
+
+    {% if files %}
+
+        <table id="archiveTable">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        File Number
+                    </th>
+
+                    <th>
+                        File Name
+                    </th>
+
+                    <th>
+                        Subject
+                    </th>
+
+                    <th>
+                        Archive Type
+                    </th>
+
+                    <th>
+                        Date
+                    </th>
+
+                    <th>
+                        Storage Location
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for file in files %}
+
+                    <tr
+                        data-id="{{ file['id'] }}"
+                        data-file-number="{{ file['file_number'] }}"
+                    >
+
+                        <td>
+                            {{ file["file_number"] }}
+                        </td>
+
+                        <td>
+                            {{ file["file_name"] or "" }}
+                        </td>
+
+                        <td>
+                            {{ file["subject"] or "" }}
+                        </td>
+
+                        <td>
+                            {{ file["archive_type"] or "" }}
+                        </td>
+
+                        <td>
+                            {{ file["document_date"] or "" }}
+                        </td>
+
+                        <td>
+                            {% if file["file_path"] %}
+                                {{ file["file_path"].replace("\\", "/").split("/")[-1] }}
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {{ file["status"] or "" }}
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    {% else %}
+
+        <div class="empty">
+            No archive files found.
+        </div>
+
+    {% endif %}
+
+</div>
+```
+
+</main>
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+
+<footer class="footer">
+    ArchiPro Archive Management System
+</footer>
+
+</div>
+
+<script>
+
+/* =====================================================
+   SELECTED FILE
+===================================================== */
+
+let selectedFileId = null;
+
+
+/* =====================================================
+   SELECT TABLE ROW
+===================================================== */
+
+document.querySelectorAll(
+    "#archiveTable tbody tr"
+).forEach(function(row) {
+
+    row.addEventListener(
+        "click",
+        function() {
+
+            document.querySelectorAll(
+                "#archiveTable tbody tr"
+            ).forEach(function(r) {
+
+                r.classList.remove(
+                    "selected"
+                );
+
+            });
+
+
+            this.classList.add(
+                "selected"
+            );
+
+
+            selectedFileId =
+                this.dataset.id;
+
+        }
+    );
+
+});
+
+
+/* =====================================================
+   EDIT
+===================================================== */
+
+function selectFileForEdit() {
+
+    if (!selectedFileId) {
+
+        alert(
+            "Please select a file."
+        );
+
+        return false;
+
+    }
+
+
+    window.location.href =
+        "/edit-file/" + selectedFileId;
+
+
+    return false;
+
+}
+
+
+/* =====================================================
+   OPEN
+===================================================== */
+
+function openSelectedFile() {
+
+    if (!selectedFileId) {
+
+        alert(
+            "Please select a file."
+        );
+
+        return false;
+
+    }
+
+
+    window.location.href =
+        "/view-file/" + selectedFileId;
+
+
+    return false;
+
+}
+
+
+/* =====================================================
+   DOWNLOAD
+===================================================== */
+
+function downloadSelectedFile() {
+
+    if (!selectedFileId) {
+
+        alert(
+            "Please select a file."
+        );
+
+        return false;
+
+    }
+
+
+    window.location.href =
+        "/download-file/" + selectedFileId;
+
+
+    return false;
+
+}
+
+
+/* =====================================================
+   DELETE
+===================================================== */
+
+function deleteSelectedFile() {
+
+    if (!selectedFileId) {
+
+        alert(
+            "Please select a file."
+        );
+
+        return false;
+
+    }
+
+
+    if (!confirm(
+        "Are you sure you want to delete this file?"
+    )) {
+
+        return false;
+
+    }
+
+
+    const form =
+        document.createElement("form");
+
+
+    form.method = "POST";
+
+
+    form.action =
+        "/delete-file/" + selectedFileId;
+
+
+    document.body.appendChild(
+        form
+    );
+
+
+    form.submit();
+
+
+    return false;
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,967 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>المستخدمون - ArchiPro</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+body {
+    background: #f4f5f7;
+    font-family: Arial, Tahoma, sans-serif;
+    color: #222222;
+}
+
+.app {
+    width: 94%;
+    max-width: 1250px;
+    margin: 30px auto;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 3px 18px rgba(0,0,0,0.10);
+    overflow: hidden;
+}
+
+/* ================= HEADER ================= */
+
+.header {
+    min-height: 110px;
+    padding: 18px 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid #e5e5e5;
+    background: #ffffff;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.logo {
+    width: 165px;
+    height: 72px;
+    object-fit: contain;
+}
+
+.brand-info {
+    border-right: 1px solid #dddddd;
+    padding-right: 18px;
+}
+
+.system-title {
+    color: #C59B35;
+    font-size: 19px;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.developer {
+    color: #777777;
+    font-size: 12px;
+    font-style: italic;
+    line-height: 18px;
+}
+
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-card {
+    background: #f8f8f8;
+    border: 1px solid #e4e4e4;
+    border-radius: 7px;
+    padding: 9px 14px;
+    min-width: 140px;
+    text-align: center;
+}
+
+.user-label {
+    display: block;
+    color: #888888;
+    font-size: 11px;
+    margin-bottom: 4px;
+}
+
+.username {
+    font-weight: bold;
+    font-size: 13px;
+    color: #333333;
+}
+
+.logout-button {
+    height: 38px;
+    padding: 0 18px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    background: #ffffff;
+    color: #555555;
+    text-decoration: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 13px;
+}
+
+.logout-button:hover {
+    border-color: #C59B35;
+    color: #C59B35;
+    background: #fffdf7;
+}
+
+/* ================= CONTENT ================= */
+
+.content {
+    padding: 28px;
+}
+
+.page-title {
+    margin-bottom: 22px;
+}
+
+.page-title h1 {
+    margin: 0;
+    color: #333333;
+    font-size: 23px;
+}
+
+.page-title p {
+    margin: 6px 0 0;
+    color: #888888;
+    font-size: 13px;
+}
+
+.section-title {
+    font-size: 15px;
+    font-weight: bold;
+    color: #555555;
+    margin-bottom: 10px;
+}
+
+/* ================= ADD USER ================= */
+
+.add-user {
+    background: #fafafa;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.add-user-header {
+    margin-bottom: 15px;
+}
+
+.add-user-header h2 {
+    margin: 0;
+    color: #333333;
+    font-size: 16px;
+}
+
+.add-user-header p {
+    margin: 5px 0 0;
+    color: #888888;
+    font-size: 12px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    height: 42px;
+    padding: 0 13px;
+
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+
+    background: #ffffff;
+    color: #222222;
+
+    font-family: Arial, Tahoma, sans-serif;
+    font-size: 13px;
+
+    outline: none;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #C59B35;
+    box-shadow: 0 0 0 2px rgba(197,155,53,0.10);
+}
+
+/* ================= PERMISSIONS ================= */
+
+.permissions-box {
+    background: #ffffff;
+    border: 1px solid #e1e1e1;
+    border-radius: 7px;
+    padding: 14px;
+    margin-bottom: 15px;
+}
+
+.permissions-title {
+    font-size: 12px;
+    font-weight: bold;
+    color: #666666;
+    margin-bottom: 12px;
+}
+
+.permissions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.permission-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    color: #444444;
+    font-size: 13px;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+}
+
+input[type="checkbox"] {
+    accent-color: #C59B35;
+    width: 15px;
+    height: 15px;
+}
+
+/* ================= BUTTONS ================= */
+
+button,
+a {
+    font-family: Arial, Tahoma, sans-serif;
+}
+
+.save {
+    min-width: 145px;
+    height: 40px;
+
+    padding: 0 18px;
+
+    border: 1px solid #C59B35;
+    border-radius: 6px;
+
+    background: #C59B35;
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.save:hover {
+    background: #b38b2f;
+    border-color: #b38b2f;
+}
+
+.delete {
+    min-width: 75px;
+    height: 36px;
+
+    padding: 0 14px;
+
+    border: 1px solid #c53b3b;
+    border-radius: 6px;
+
+    background: #ffffff;
+    color: #c53b3b;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.delete:hover {
+    background: #c53b3b;
+    color: #ffffff;
+}
+
+.back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 40px;
+    padding: 0 20px;
+
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+
+    background: #ffffff;
+    color: #555555;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.back:hover {
+    border-color: #C59B35;
+    color: #C59B35;
+    background: #fffdf7;
+}
+
+/* ================= USERS TABLE ================= */
+
+.users-section {
+    margin-top: 10px;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+
+    background: #ffffff;
+}
+
+table {
+    width: 100%;
+    min-width: 1050px;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+th,
+td {
+    padding: 13px 11px;
+
+    border-bottom: 1px solid #eeeeee;
+
+    text-align: center;
+    vertical-align: middle;
+}
+
+th {
+    background: #f7f7f7;
+    color: #444444;
+
+    font-weight: bold;
+
+    white-space: nowrap;
+}
+
+tbody tr:hover td {
+    background: #fffdf6;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.username-cell {
+    font-weight: bold;
+    color: #333333;
+}
+
+.role-badge {
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    border-radius: 5px;
+
+    background: #fff8df;
+    border: 1px solid #e5c866;
+
+    color: #8c6c17;
+
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.normal-badge {
+    background: #f5f5f5;
+    border-color: #dddddd;
+    color: #666666;
+}
+
+.all-permissions {
+    color: #C59B35;
+    font-weight: bold;
+}
+
+.permission-form {
+    display: inline-block;
+    width: 100%;
+}
+
+.permission-form .permissions {
+    justify-content: center;
+    margin-bottom: 10px;
+    gap: 14px;
+}
+
+.permission-form .save {
+    height: 34px;
+    min-width: 125px;
+    font-size: 12px;
+}
+
+.delete-form {
+    margin: 0;
+}
+
+.main-protected {
+    color: #999999;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+/* ================= FOOTER ================= */
+
+.footer {
+    padding: 15px 25px;
+
+    border-top: 1px solid #eeeeee;
+
+    color: #999999;
+    font-size: 11px;
+
+    text-align: right;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 750px) {
+
+    .app {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .user-area {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .content {
+        padding: 18px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .permissions {
+        justify-content: flex-start;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+
+    <div class="brand">
+
+        <img
+            src="{{ url_for('static', filename='logo.jpg') }}"
+            alt="ArchiPro Logo"
+            class="logo"
+        >
+
+        <div class="brand-info">
+
+            <div class="system-title">
+                Archive Management System
+            </div>
+
+            <div class="developer">
+                Developed by:<br>
+                Eng. Perry Emad
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="user-area">
+
+        <div class="user-card">
+
+            <span class="user-label">
+                Logged in as
+            </span>
+
+            <span class="username">
+                {{ username }}
+            </span>
+
+        </div>
+
+        <a
+            href="/logout"
+            class="logout-button"
+        >
+            Logout
+        </a>
+
+    </div>
+
+</header>
+
+<main class="content">
+
+<div class="page-title">
+
+    <h1>
+        إدارة المستخدمين
+    </h1>
+
+    <p>
+        إنشاء المستخدمين وإدارة صلاحيات الوصول إلى نظام ArchiPro.
+    </p>
+
+</div>
+
+<!-- ================= ADD USER ================= -->
+
+<div class="section-title">
+    إضافة مستخدم
+</div>
+
+<div class="add-user">
+
+    <div class="add-user-header">
+
+        <h2>
+            إضافة مستخدم جديد
+        </h2>
+
+        <p>
+            أدخل بيانات المستخدم وحدد الصلاحيات المطلوبة.
+        </p>
+
+    </div>
+
+    <form
+        action="{{ url_for('add_user') }}"
+        method="POST"
+    >
+
+        <div class="form-row">
+
+            <input
+                type="text"
+                name="username"
+                placeholder="اسم المستخدم"
+                required
+            >
+
+            <input
+                type="password"
+                name="password"
+                placeholder="كلمة المرور"
+                required
+            >
+
+        </div>
+
+        <div class="permissions-box">
+
+            <div class="permissions-title">
+                الصلاحيات
+            </div>
+
+            <div class="permissions">
+
+                <!-- EXISTING PERMISSIONS -->
+
+                <label class="permission-label">
+                    <input
+                        type="checkbox"
+                        name="can_view"
+                        checked
+                    >
+                    عرض
+                </label>
+
+                <label class="permission-label">
+                    <input
+                        type="checkbox"
+                        name="can_download"
+                    >
+                    تنزيل
+                </label>
+
+                <label class="permission-label">
+                    <input
+                        type="checkbox"
+                        name="can_add"
+                    >
+                    إضافة
+                </label>
+
+                <label class="permission-label">
+                    <input
+                        type="checkbox"
+                        name="can_edit"
+                    >
+                    تعديل
+                </label>
+
+                <label class="permission-label">
+                    <input
+                        type="checkbox"
+                        name="can_delete"
+                    >
+                    حذف
+                </label>
+
+                <!-- NEW SECURITY PERMISSIONS -->
+
+                <label class="permission-label">
+                    <input
+                        type="checkbox"
+                        name="can_normal"
+                    >
+                    عادي
+                </label>
+
+                <label class="permission-label">
+                    <input
+                        type="checkbox"
+                        name="can_secret"
+                    >
+                    سري
+                </label>
+
+                <label class="permission-label">
+                    <input
+                        type="checkbox"
+                        name="can_top_secret"
+                    >
+                    سري للغاية
+                </label>
+
+            </div>
+
+        </div>
+
+        <button
+            class="save"
+            type="submit"
+        >
+            إنشاء المستخدم
+        </button>
+
+    </form>
+
+</div>
+
+<!-- ================= USERS LIST ================= -->
+
+<div class="users-section">
+
+    <div class="section-title">
+        المستخدمون الحاليون
+    </div>
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        اسم المستخدم
+                    </th>
+
+                    <th>
+                        نوع المستخدم
+                    </th>
+
+                    <th>
+                        الصلاحيات
+                    </th>
+
+                    <th>
+                        إجراء
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for user in users %}
+
+            <tr>
+
+                <td class="username-cell">
+                    {{ user['username'] }}
+                </td>
+
+                <td>
+
+                    {% if user['role'] == 'main_user' %}
+
+                        <span class="role-badge">
+                            المستخدم الرئيسي
+                        </span>
+
+                    {% else %}
+
+                        <span class="role-badge normal-badge">
+                            مستخدم عادي
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+                <td>
+
+                {% if user['role'] == 'main_user' %}
+
+                    <span class="all-permissions">
+                        جميع الصلاحيات
+                    </span>
+
+                {% else %}
+
+                    <form
+                        class="permission-form"
+                        action="{{ url_for('update_permissions', user_id=user['id']) }}"
+                        method="POST"
+                    >
+
+                        <div class="permissions">
+
+                            <!-- EXISTING PERMISSIONS -->
+
+                            <label class="permission-label">
+
+                                <input
+                                    type="checkbox"
+                                    name="can_view"
+                                    {% if user['can_view'] %}checked{% endif %}
+                                >
+
+                                عرض
+
+                            </label>
+
+                            <label class="permission-label">
+
+                                <input
+                                    type="checkbox"
+                                    name="can_download"
+                                    {% if user['can_download'] %}checked{% endif %}
+                                >
+
+                                تنزيل
+
+                            </label>
+
+                            <label class="permission-label">
+
+                                <input
+                                    type="checkbox"
+                                    name="can_add"
+                                    {% if user['can_add'] %}checked{% endif %}
+                                >
+
+                                إضافة
+
+                            </label>
+
+                            <label class="permission-label">
+
+                                <input
+                                    type="checkbox"
+                                    name="can_edit"
+                                    {% if user['can_edit'] %}checked{% endif %}
+                                >
+
+                                تعديل
+
+                            </label>
+
+                            <label class="permission-label">
+
+                                <input
+                                    type="checkbox"
+                                    name="can_delete"
+                                    {% if user['can_delete'] %}checked{% endif %}
+                                >
+
+                                حذف
+
+                            </label>
+
+                            <!-- NEW SECURITY PERMISSIONS -->
+
+                            <label class="permission-label">
+
+                                <input
+                                    type="checkbox"
+                                    name="can_normal"
+                                    {% if user['can_normal'] %}checked{% endif %}
+                                >
+
+                                عادي
+
+                            </label>
+
+                            <label class="permission-label">
+
+                                <input
+                                    type="checkbox"
+                                    name="can_secret"
+                                    {% if user['can_secret'] %}checked{% endif %}
+                                >
+
+                                سري
+
+                            </label>
+
+                            <label class="permission-label">
+
+                                <input
+                                    type="checkbox"
+                                    name="can_top_secret"
+                                    {% if user['can_top_secret'] %}checked{% endif %}
+                                >
+
+                                سري للغاية
+
+                            </label>
+
+                        </div>
+
+                        <button
+                            class="save"
+                            type="submit"
+                        >
+                            حفظ الصلاحيات
+                        </button>
+
+                    </form>
+
+                {% endif %}
+
+                </td>
+
+                <td>
+
+                {% if user['role'] != 'main_user' %}
+
+                    <form
+                        class="delete-form"
+                        action="{{ url_for('delete_user', user_id=user['id']) }}"
+                        method="POST"
+                        onsubmit="return confirm('هل أنت متأكد من حذف المستخدم؟');"
+                    >
+
+                        <button
+                            class="delete"
+                            type="submit"
+                        >
+                            حذف
+                        </button>
+
+                    </form>
+
+                {% else %}
+
+                    <div class="main-protected">
+                        المستخدم الرئيسي<br>
+                        لا يمكن حذفه
+                    </div>
+
+                {% endif %}
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<!-- ================= BACK ================= -->
+
+<div style="margin-top: 20px;">
+
+    <a
+        class="back"
+        href="{{ url_for('dashboard') }}"
+    >
+        ← رجوع إلى Dashboard
+    </a>
+
+</div>
+
+</main>
+
+<footer class="footer">
+    ArchiPro Archive Management System
+</footer>
+
+</div>
+
+</body>
+</html>

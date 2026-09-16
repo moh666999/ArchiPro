@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ArchiPro - Login</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #eeeeee;
+            font-family: Arial, Tahoma, sans-serif;
+        }
+
+        .window {
+            width: 430px;
+            margin: 80px auto;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,.12);
+            text-align: center;
+        }
+
+       .logo {
+            width: 220px;
+            height: auto;
+            display: block;
+            margin: 0 auto 20px;
+        }
+
+        h1 {
+            margin: 8px 0;
+        }
+
+        .developer {
+            color: #777;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .row {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        button {
+            width: 100%;
+            padding: 11px;
+            border: none;
+            border-radius: 5px;
+            background: #2d6cdf;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .flash {
+            background: #f3eeee;
+            border: 1px solid #ddd;
+            padding: 8px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="window">
+
+ <img src="{{ url_for('static', filename='logo.jpg') }}" alt="ArchiPro Logo" class="logo">
+    <h1>
+        ArchiPro
+    </h1>
+
+    <div class="developer">
+        Archive Management System
+    </div>
+
+
+    {% with messages = get_flashed_messages() %}
+
+        {% for message in messages %}
+
+            <div class="flash">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    {% endwith %}
+
+
+    <form method="POST">
+
+        <div class="row">
+
+            <label>
+                Username
+            </label>
+
+            <input
+                type="text"
+                name="username"
+                required
+                autofocus
+            >
+
+        </div>
+
+
+        <div class="row">
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password"
+                name="password"
+                required
+            >
+
+        </div>
+
+
+        <button type="submit">
+            Login
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>

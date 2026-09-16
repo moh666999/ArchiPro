@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>عرض الملف - ArchiPro</title>
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        min-height: 100%;
+    }
+
+    body {
+        background: #f4f5f7;
+        font-family: Arial, Tahoma, sans-serif;
+        color: #222222;
+    }
+
+
+    /* =====================================================
+       MAIN APP
+    ===================================================== */
+
+    .app {
+        width: 94%;
+        max-width: 1100px;
+        margin: 30px auto;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 3px 18px rgba(0,0,0,0.10);
+        overflow: hidden;
+    }
+
+
+    /* =====================================================
+       HEADER
+    ===================================================== */
+
+    .header {
+        min-height: 110px;
+        padding: 18px 25px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        border-bottom: 1px solid #e5e5e5;
+        background: #ffffff;
+    }
+
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+    }
+
+
+    .logo {
+        width: 165px;
+        height: 72px;
+        object-fit: contain;
+    }
+
+
+    .brand-info {
+        border-right: 1px solid #dddddd;
+        padding-right: 18px;
+    }
+
+
+    .system-title {
+        color: #C59B35;
+        font-size: 19px;
+        font-weight: bold;
+        margin-bottom: 7px;
+    }
+
+
+    .developer {
+        color: #777777;
+        font-size: 12px;
+        font-style: italic;
+        line-height: 18px;
+    }
+
+
+    .user-area {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+
+    .user-card {
+        background: #f8f8f8;
+        border: 1px solid #e4e4e4;
+        border-radius: 7px;
+        padding: 9px 14px;
+        min-width: 140px;
+        text-align: center;
+    }
+
+
+    .user-label {
+        display: block;
+        color: #888888;
+        font-size: 11px;
+        margin-bottom: 4px;
+    }
+
+
+    .username {
+        font-weight: bold;
+        font-size: 13px;
+        color: #333333;
+    }
+
+
+    .logout-button {
+        height: 38px;
+        padding: 0 18px;
+        border: 1px solid #cccccc;
+        border-radius: 5px;
+        background: #ffffff;
+        color: #555555;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+    }
+
+
+    .logout-button:hover {
+        border-color: #C59B35;
+        color: #C59B35;
+        background: #fffdf7;
+    }
+
+
+    /* =====================================================
+       CONTENT
+    ===================================================== */
+
+    .content {
+        padding: 28px;
+    }
+
+
+    .page-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        margin-bottom: 20px;
+    }
+
+
+    .page-title h1 {
+        margin: 0;
+        font-size: 23px;
+        color: #333333;
+    }
+
+
+    .page-title p {
+        margin: 6px 0 0;
+        color: #888888;
+        font-size: 13px;
+    }
+
+
+    .file-number-badge {
+        background: #fff8df;
+        border: 1px solid #e5c866;
+        color: #8c6c17;
+        border-radius: 7px;
+        padding: 10px 18px;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+
+    /* =====================================================
+       DETAILS GRID
+    ===================================================== */
+
+    .details-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+    }
+
+
+    .item {
+        background: #fafafa;
+        border: 1px solid #e2e2e2;
+        border-radius: 8px;
+        padding: 15px 17px;
+
+        min-height: 75px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+
+    .item.full {
+        grid-column: 1 / -1;
+    }
+
+
+    .label {
+        color: #888888;
+        font-size: 12px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+
+    .value {
+        color: #222222;
+        font-size: 14px;
+        line-height: 22px;
+
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+
+    .file-name {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333333;
+    }
+
+
+    .subject {
+        min-height: 120px;
+    }
+
+
+    .subject .value {
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+
+    .storage .value {
+        font-family: Consolas, "Courier New", monospace;
+        direction: ltr;
+        text-align: left;
+        background: #ffffff;
+        border: 1px solid #eeeeee;
+        border-radius: 5px;
+        padding: 9px 11px;
+    }
+
+
+    /* =====================================================
+       TYPE BADGES
+    ===================================================== */
+
+    .badge {
+        display: inline-block;
+        width: fit-content;
+        padding: 5px 12px;
+        border-radius: 5px;
+        font-size: 12px;
+        font-weight: bold;
+        background: #ffffff;
+        border: 1px solid #d8d8d8;
+    }
+
+
+    /* =====================================================
+       ELECTRONIC FILE
+    ===================================================== */
+
+    .electronic-file {
+        margin-top: 18px;
+        background: #fafafa;
+        border: 1px solid #e2e2e2;
+        border-radius: 8px;
+        padding: 17px;
+    }
+
+
+    .electronic-title {
+        font-size: 13px;
+        font-weight: bold;
+        color: #555555;
+        margin-bottom: 10px;
+    }
+
+
+    .electronic-name {
+        background: #ffffff;
+        border: 1px solid #dddddd;
+        border-radius: 6px;
+        padding: 11px 13px;
+        color: #333333;
+        font-size: 13px;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+
+    /* =====================================================
+       BUTTONS
+    ===================================================== */
+
+    .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+
+        margin-top: 25px;
+        padding-top: 20px;
+
+        border-top: 1px solid #eeeeee;
+    }
+
+
+    .button {
+        min-width: 150px;
+        height: 42px;
+
+        padding: 0 20px;
+
+        border-radius: 6px;
+        border: 1px solid #cccccc;
+
+        background: #ffffff;
+        color: #555555;
+
+        text-decoration: none;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 13px;
+        font-weight: bold;
+
+        transition: 0.15s;
+    }
+
+
+    .button:hover {
+        border-color: #C59B35;
+        color: #C59B35;
+        background: #fffdf7;
+    }
+
+
+    .download {
+        background: #C59B35;
+        border-color: #C59B35;
+        color: #ffffff;
+    }
+
+
+    .download:hover {
+        background: #b38b2f;
+        border-color: #b38b2f;
+        color: #ffffff;
+    }
+
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+
+    .footer {
+        padding: 15px 25px;
+
+        border-top: 1px solid #eeeeee;
+
+        color: #999999;
+        font-size: 11px;
+
+        text-align: right;
+    }
+
+
+    /* =====================================================
+       MOBILE
+    ===================================================== */
+
+    @media (max-width: 750px) {
+
+        .app {
+            width: 100%;
+            margin: 0;
+            border-radius: 0;
+        }
+
+
+        .header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+
+        .user-area {
+            width: 100%;
+            justify-content: space-between;
+        }
+
+
+        .content {
+            padding: 18px;
+        }
+
+
+        .details-grid {
+            grid-template-columns: 1fr;
+        }
+
+
+        .item.full {
+            grid-column: auto;
+        }
+
+
+        .page-title {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+    }
+
+</style>
+
+</head>
+
+<body>
+
+<div class="app">
+
+
+<!-- =====================================================
+     HEADER
+====================================================== -->
+
+<header class="header">
+
+
+    <div class="brand">
+
+        <img
+            src="{{ url_for('static', filename='logo.jpg') }}"
+            alt="ArchiPro Logo"
+            class="logo"
+        >
+
+
+        <div class="brand-info">
+
+            <div class="system-title">
+                Archive Management System
+            </div>
+
+
+            <div class="developer">
+                Developed by:<br>
+                Eng. Perry Emad
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="user-area">
+
+        {% if username %}
+
+            <div class="user-card">
+
+                <span class="user-label">
+                    Logged in as
+                </span>
+
+                <span class="username">
+                    {{ username }}
+                </span>
+
+            </div>
+
+        {% endif %}
+
+
+        <a
+            href="/logout"
+            class="logout-button"
+        >
+            Logout
+        </a>
+
+    </div>
+
+
+</header>
+
+
+<!-- =====================================================
+     CONTENT
+====================================================== -->
+
+<main class="content">
+
+
+    <div class="page-title">
+
+        <div>
+
+            <h1>
+                بيانات الملف
+            </h1>
+
+            <p>
+                عرض جميع تفاصيل الملف المحفوظ في نظام ArchiPro
+            </p>
+
+        </div>
+
+
+        <div class="file-number-badge">
+
+            رقم الملف:
+            {{ file['file_number'] }}
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         DETAILS
+    ================================================== -->
+
+    <div class="details-grid">
+
+
+        <!-- FILE NAME -->
+
+        <div class="item full">
+
+            <div class="label">
+                اسم الملف
+            </div>
+
+            <div class="value file-name">
+                {{ file['file_name'] or '-' }}
+            </div>
+
+        </div>
+
+
+        <!-- SUBJECT -->
+
+        <div class="item full subject">
+
+            <div class="label">
+                الموضوع / الوصف
+            </div>
+
+            <div class="value">
+                {{ file['subject'] or '-' }}
+            </div>
+
+        </div>
+
+
+        <!-- DOCUMENT TYPE -->
+
+        <div class="item">
+
+            <div class="label">
+                نوع المستند
+            </div>
+
+            <div class="value">
+
+                <span class="badge">
+                    {{ file['document_type'] or '-' }}
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- ARCHIVE TYPE -->
+
+        <div class="item">
+
+            <div class="label">
+                نوع الأرشيف
+            </div>
+
+            <div class="value">
+
+                <span class="badge">
+                    {{ file['archive_type'] or '-' }}
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- DOCUMENT DATE -->
+
+        <div class="item">
+
+            <div class="label">
+                تاريخ المستند
+            </div>
+
+            <div class="value">
+                {{ file['document_date'] or '-' }}
+            </div>
+
+        </div>
+
+
+        <!-- STATUS -->
+
+        <div class="item">
+
+            <div class="label">
+                الحالة
+            </div>
+
+            <div class="value">
+
+                <span class="badge">
+                    {{ file['status'] or '-' }}
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- STORAGE LOCATION -->
+
+        <div class="item full storage">
+
+            <div class="label">
+                مكان حفظ المستند
+            </div>
+
+            <div class="value">
+
+                {{ file['storage_location'] or file['file_path'] or '-' }}
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =================================================
+         ELECTRONIC FILE
+    ================================================== -->
+
+    {% set electronic_path = file['document_file_path'] or file['file_path'] %}
+
+    {% if electronic_path %}
+
+        <div class="electronic-file">
+
+            <div class="electronic-title">
+                الملف الإلكتروني
+            </div>
+
+
+            <div class="electronic-name">
+
+                {{ electronic_path.replace("\\", "/").split("/")[-1] }}
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- =================================================
+         BUTTONS
+    ================================================== -->
+
+    <div class="buttons">
+
+
+        {% if electronic_path %}
+
+            <!-- OPEN FILE -->
+
+            <a
+                class="button"
+                href="{{ url_for('document', file_id=file['id']) }}"
+                target="_blank"
+            >
+                فتح الملف
+            </a>
+
+
+            <!-- DOWNLOAD FILE -->
+
+            <a
+                class="button download"
+                href="{{ url_for('download_file', file_id=file['id']) }}"
+            >
+                تنزيل الملف
+            </a>
+
+        {% endif %}
+
+
+        <a
+            class="button"
+            href="{{ url_for('dashboard') }}"
+        >
+            رجوع إلى Dashboard
+        </a>
+
+
+    </div>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+
+<footer class="footer">
+
+    ArchiPro Archive Management System
+
+</footer>
+
+
+</div>
+
+</body>
+
+</html>

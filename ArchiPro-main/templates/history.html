@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>السجل - ArchiPro</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            background: #eeeeee;
+            font-family: Arial, Tahoma, sans-serif;
+        }
+
+        .window {
+            width: 900px;
+            margin: 30px auto;
+            background: white;
+            padding: 22px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 9px;
+            text-align: center;
+        }
+
+        th {
+            background: #f1f1f1;
+        }
+
+        button,
+        a {
+            padding: 9px 16px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .clear {
+            background: #c53b3b;
+            color: white;
+        }
+
+        .back {
+            background: #666;
+            color: white;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="window">
+
+    <h1>سجل العمليات</h1>
+
+    <div class="actions">
+
+        <form
+            action="{{ url_for('clear_history') }}"
+            method="POST"
+            onsubmit="return confirm('هل أنت متأكد من مسح السجل بالكامل؟');"
+        >
+
+            <button
+                class="clear"
+                type="submit"
+            >
+                مسح السجل
+            </button>
+
+        </form>
+
+        <a
+            class="back"
+            href="{{ url_for('dashboard') }}"
+        >
+            رجوع
+        </a>
+
+    </div>
+
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>رقم الملف</th>
+                <th>العملية</th>
+                <th>التاريخ والوقت</th>
+                <th>المستخدم</th>
+                <th>الجهاز</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for row in history %}
+
+            <tr>
+
+                <td>
+                    {{ row['file_number'] }}
+                </td>
+
+                <td>
+                    {{ row['action'] }}
+                </td>
+
+                <td>
+                    {{ row['action_date'] }}
+                </td>
+
+                <td>
+                    {{ row['username'] }}
+                </td>
+
+                <td>
+                    {{ row['device_name'] }}
+                </td>
+
+            </tr>
+
+            {% else %}
+
+            <tr>
+
+                <td colspan="5">
+                    لا توجد عمليات مسجلة
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+
+</html>
